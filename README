@@ -1,11 +1,17 @@
 This is a small project of a common raytracer.
+usage:
+java raytrace file.3dObj
+
 
 todo:
 >read objects out of a file
 >light!!
 >different surfaces and materials
 
-3.Okt.2011
 
-usage:
-java raytrace file.3dobj
+
+
+
+
+3.Okt.2011
+* file support added
