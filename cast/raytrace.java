@@ -1,46 +1,50 @@
-import java.awt.Color;
+package cast;
 
+import java.awt.Color;
 import visual.*;
 import math.*;
 import logic.*;
+import data.*;
 
 public class raytrace {
+	public static int w,h;
+	public static double phi;
 	public static void main(String args[]){
 		/**
 		 * TODO 
-		 * objekte um eine farbe erweitern
+		 * watch at README
 		 */
+		w=0;h=0;phi=0;
 		boolean deb=false;
 		Color tmpCol;
 		double entf;
-
-		//init picture
-		int w=800,h=600;
+		compList rootList;
+		rootList = new compList(null);
+		double tmpentf;
+		
+		//read out of file
+		System.out.println("loding file: "+args[0]);
+		read3dObj.readMe(rootList,args[0]);
+		
+		//init picture		
 		Picture Screen = new Picture(w,h);
 		Screen.setOriginLowerLeft();
 		
-/*
-		ball b1=new ball(new vec(3150,50,0),100);
-		plain dree = new plain(new vec(3000,0,250),new vec(4000,-50,-100), new vec(3000,150,-100));
-*/		
 		//init distance of screen by angle
-		int x = (int) (((double)w)/(2*Math.tan(Math.toRadians((double)30/2))));
+		int x = (int) (((double)w)/(2*Math.tan(Math.toRadians((double)phi/2))));
 		
 		//the current ray		
 		vec akt;
 		akt=new vec(0,0,0);
 		akt.setX(x);		
-	
-		//System.out.println("Abstand= "+x);
 		
-
-		//fill the list with objects
-		compList rootList;
-		rootList = new compList(new ball(new vec(3150,50,0),100,Color.RED));
-		rootList.addEnd(rootList,new plain(new vec(3000,0,250),new vec(4000,-50,-100), new vec(3000,150,-100),Color.BLUE));
+		
+		
 		//print the list on terminal
 		rootList.printList(rootList);
-		double tmpentf;	
+		
+			
+		
 		for(int y=(-w/2); y<(w/2);y++){
 			for(int z=-(h/2);z<h/2;z++){
 				//set max dist and maxdist-color				
