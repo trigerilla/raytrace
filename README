@@ -6,3 +6,6 @@ todo:
 >different surfaces and materials
 
 3.Okt.2011
+
+usage:
+java raytrace file.3dobj
