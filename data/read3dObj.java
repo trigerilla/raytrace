@@ -23,7 +23,7 @@ public class read3dObj{
 			if(sp[0].equals("a")){
 				cast.raytrace.phi=Double.parseDouble(sp[1]);
 				cast.raytrace.w=Integer.parseInt(sp[2]);
-				cast.raytrace.h=Integer.parseInt(sp[10]);
+				cast.raytrace.h=Integer.parseInt(sp[3]);
 			}else if(sp[0].equals("b")){
 			
 				x1=Double.parseDouble(sp[1]);
@@ -34,7 +34,9 @@ public class read3dObj{
 				tmpC=new Color(Integer.parseInt(sp[5]),Integer.parseInt(sp[6]),Integer.parseInt(sp[7]));
 			
 				if(first){
-					rootList = new compList(new ball(new vec(x1,y1,z1),r,tmpC));
+					//rootList = new compList();
+					rootList.setCur(new ball(new vec(x1,y1,z1),r,tmpC));
+					first = false;
 				}else{
 					rootList.addEnd(rootList,new ball(new vec(x1,y1,z1),r,tmpC));
 				}
@@ -53,7 +55,9 @@ public class read3dObj{
 				tmpC=new Color(Integer.parseInt(sp[10]),Integer.parseInt(sp[11]),Integer.parseInt(sp[12]));
 			
 				if(first){
-					rootList = new compList(new plain(new vec(x1,y1,z1),new vec(x2,y2,z2), new vec(x3,y3,z3),tmpC));
+					//rootList = new compList(new plain(new vec(x1,y1,z1),new vec(x2,y2,z2), new vec(x3,y3,z3),tmpC));
+					rootList.setCur(new plain(new vec(x1,y1,z1),new vec(x2,y2,z2), new vec(x3,y3,z3),tmpC));
+					first = false;
 				}else{
 					rootList.addEnd(rootList,new plain(new vec(x1,y1,z1),new vec(x2,y2,z2), new vec(x3,y3,z3),tmpC));
 				}

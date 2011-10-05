@@ -25,6 +25,7 @@ public class raytrace {
 		//read out of file
 		System.out.println("loding file: "+args[0]);
 		read3dObj.readMe(rootList,args[0]);
+		//System.out.println("w="+w+" h="+h+" phi="+phi);
 		
 		//init picture		
 		Picture Screen = new Picture(w,h);
@@ -35,16 +36,14 @@ public class raytrace {
 		
 		//the current ray		
 		vec akt;
-		akt=new vec(0,0,0);
-		akt.setX(x);		
+		akt=new vec(x,0,0);
+		//akt.setX(x);		
 		
-		
-		
-		//print the list on terminal
+		//print the list/all elements on terminal
 		rootList.printList(rootList);
 		
 			
-		
+		/*
 		for(int y=(-w/2); y<(w/2);y++){
 			for(int z=-(h/2);z<h/2;z++){
 				//set max dist and maxdist-color				
@@ -75,7 +74,7 @@ public class raytrace {
 				//draw in the right color
 				Screen.set(y+(w/2),z+(h/2),tmpCol);
 			}
-		}
+		}*/
 		Screen.show();
 	}
 }

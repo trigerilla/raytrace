@@ -14,6 +14,10 @@ public class compList{
 		return cur;
 	}
 	
+	public void setCur(compObj CUR){
+		cur=CUR;
+	}
+	
 	public compList getNext(){
 		return next;
 	}
