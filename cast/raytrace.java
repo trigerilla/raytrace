@@ -43,7 +43,7 @@ public class raytrace {
 		rootList.printList(rootList);
 		
 			
-		/*
+		
 		for(int y=(-w/2); y<(w/2);y++){
 			for(int z=-(h/2);z<h/2;z++){
 				//set max dist and maxdist-color				
@@ -74,7 +74,7 @@ public class raytrace {
 				//draw in the right color
 				Screen.set(y+(w/2),z+(h/2),tmpCol);
 			}
-		}*/
+		}
 		Screen.show();
 	}
 }
