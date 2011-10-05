@@ -4,9 +4,13 @@ java raytrace file.3dObj
 
 
 todo:
->light!!
+>light!!->phong light modell
 >different surfaces and materials
 
 
 3.Okt.2011
 * file support added
+
+5.Okt.2011
+*deubug
+*new example
