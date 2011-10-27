@@ -1,0 +1,50 @@
+package caster;
+
+import math.*;
+import visual.*;
+
+public class raycaster{
+	public static intersection getClosestObj(objectList objects, vec ray, vec cam){
+		intersection shIn, tmp;//shortest intersection
+		shIn = new intersection();
+		// find shortest intersection
+		
+		while(objects.getNext() != null){
+			tmp=objects.getCur().intersectsRay(new gerade(cam, ray), null);
+			if(tmp.hits()){
+				if(tmp.getDist() < shIn.getDist()){
+					shIn=tmp;
+				}
+			}
+			objects=objects.getNext();			
+		}
+		tmp=objects.getCur().intersectsRay(new gerade(cam, ray), null);
+		if(tmp.hits()){
+			if(tmp.getDist() < shIn.getDist()){
+				shIn=tmp;
+			}
+		}
+		
+		return shIn;
+	}
+	
+	public static boolean objectBetweenLight(intersectable origin, gerade ray, light curLight, objectList objects){
+		boolean objBet;
+		objBet=false;
+		intersection shIn,tmp;
+		shIn=new intersection();
+		while(objects.getNext() != null){
+			tmp=objects.getCur().intersectsRay(ray, origin);
+			objBet=objBet || tmp.hits();
+			if(objBet){
+				return objBet;
+			}
+			objects=objects.getNext();			
+		}
+		tmp=objects.getCur().intersectsRay(ray, origin);
+		objBet=objBet || tmp.hits();
+		
+		return objBet;
+	}
+	
+}

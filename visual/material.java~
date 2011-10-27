@@ -1,0 +1,42 @@
+package visual;
+
+public class material
+{
+
+    private double ka;
+    private double kd;
+    private double ks;
+    private double alpha;
+
+    public material(double A, double D, double S, double AL)
+    {
+        ka = A;
+        kd = D;
+        ks = S;
+        alpha = AL;
+    }
+
+    public double getKs()
+    {
+
+        return ks;
+    }
+
+    public double getKd()
+    {
+
+        return kd;
+    }
+
+    public double getKa()
+    {
+
+        return ka;
+    }
+
+    public double getAlpha()
+    {
+
+        return alpha;
+    }
+}

@@ -1,0 +1,31 @@
+package visual;
+
+public class RGBmaterial
+{
+
+    private material R;
+    private material G;
+    private material B;
+    public static final RGBmaterial blueLowSpec 
+    			= new RGBmaterial(
+    				new material(0, 0, 0, 0),
+    				new material(0, 0, 0, 0),
+    				new material(0.2, 0.2, 0.8, 10));
+
+    public RGBmaterial(material r, material g, material b)
+    {
+        R = r;
+        G = g;
+        B = b;
+    }
+    
+    public material getR(){
+	return R;
+    }
+    public material getG(){
+	return G;
+    }
+    public material getB(){
+	return B;
+    }
+}

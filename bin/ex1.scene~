@@ -1,0 +1,16 @@
+#Globals
+#glob_width_height_angle 
+#could only be defined once
+global_800_600_30
+
+#Ball
+#ball_x_y_z_rad_matName
+#for random mat
+#ball_x_y_z_rad_'rnd'
+
+#Light (white light)
+#light_x_y_z_I
+
+ball_500_0_0_50_blue
+
+light_100_100_100_255
