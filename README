@@ -1,12 +1,12 @@
 common raytracer
 
-bin: 	-> run
+usage:
 
-TODO:
-run.java		->combine the parts
-lightList.java		->done:create, fill, getambi
-objectList.java		->done:create, fill
-material.java		->done:calc light -> phong.java
-phong.java		->calc light
-settings.java		->read a settingsfile fill lights and objects
-ball.java 		->schnittpunkt zum intersection hinzufügen
+java bin.run <scenefile.scene>
+
+
+#(experimental)
+#there is also another executable to create stopmotionPictures for a special use
+usage:
+
+java bin.animi <specialscenefile>
