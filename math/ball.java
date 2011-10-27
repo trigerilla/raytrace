@@ -1,65 +1,152 @@
 package math;
 
-import logic.compObj;
-import java.awt.Color;
+import visual.RGBmaterial;
 
-public class ball implements compObj{
-	private vec fixpoint;
-	private double rad;
-	private Color col;
+public class ball
+    implements intersectable
+{
+    protected RGBmaterial mat;
+    private vec fix;
+    private double r;
+    
+    public RGBmaterial getMat(){
+    	    return mat;
+    }
+    
+    public vec getN(vec p){
+    	return vec.norm(vec.sub(p,fix));	    
+    }
+    public intersection intersectsCamRay(gerade g){
+    	intersection erg;
+        erg = new intersection();
+        double a,b,c, disk,x1,x2,dist1;
+         	a=vec.scaleProd(g.getDir(),g.getDir());
+         	b=2*vec.scaleProd(g.getDir(),vec.sub(g.getFix(),this.fix));
+         	c=vec.scaleProd(vec.sub(this.fix, g.getFix()),vec.sub(this.fix, g.getFix()))-(r*r);
+         	
+         	disk=((b*b)-(4*a*c));
+         	if(disk<0){
+         		erg.setHits(false);
+         		return erg;
+         	}else{
+         		erg.setHits(true);
+         		erg.setObj(this);
+         		x1=(-b+Math.sqrt(disk))/(2*a);
+         		x2=(-b-Math.sqrt(disk))/(2*a);
+         		if(x1<0 || x2<0){
+         			erg.setHits(false);
+         			return erg;
+         		}
+         		a=vec.len(vec.add(g.getFix(),vec.scaleN(g.getDir(),x1)));
+         		b=vec.len(vec.add(g.getFix(),vec.scaleN(g.getDir(),x2)));
+         		
+         		if(a<b){
+         			erg.setCut(vec.add(g.getFix(),vec.scaleN(g.getDir(),x1)));
+         			erg.setDist(a);
+         			
+         		}else{
+         			erg.setCut(vec.add(g.getFix(),vec.scaleN(g.getDir(),x2)));
+         			erg.setDist(b);
+         		}
+         		//System.out.println(erg.getCut());
+         	}
+         	return erg;
+    }
+    public intersection intersectsRay(gerade g, intersectable orig)
+    {
+    	
+        intersection erg;
+        erg = new intersection();
 
-	public Color getColor(){
-		return col;
-	}
+        //nur wichtig für licht
+        if (orig!= null && orig.equals(this))
+        {
+        
+            
+            if (Math.acos(vec.scaleProd(vec.norm(vec.sub(this.fix,g.getFix())), 
+                                        vec.norm(g.getDir()))) > Math.PI/2)
+            				//es wird ein punkt der kugel betrachtet
+            {
+            	   
+                //inverser ortsvektor des punktes auf der oberfläche und 
+                //vektor von punkt auf der oberfläche in richtung licht
+                //schließen einnen winkel von weniger al pi ein
+                erg.setHits(false);
+            }
+            else
+            {
 
-	public ball(vec fixpoint, double rad, Color c) {
-		super();
-		this.fixpoint = fixpoint;
-		this.rad = rad;
-		this.col = c;
-	}
-	public ball(vec fixpoint, double rad) {
-		super();
-		this.fixpoint = fixpoint;
-		this.rad = rad;
-	}
+                // der eingeschlossene winkel ist größer
+                erg.setHits(true);
+            }
 
-	public String toString(){
-		return "ball-> fix:"+fixpoint+" rad:"+rad;
-	}
+            return erg;
+        }
+        else
+        {
+            // normale schnittpunkt berechnung vom ursprung/cam aus
+         	double a,b,c, disk,x1,x2,dist1;
+         	a=vec.scaleProd(g.getDir(),g.getDir());
+         	b=2*vec.scaleProd(g.getDir(),vec.sub(g.getFix(),this.fix));
+         	c=vec.scaleProd(vec.sub(this.fix, g.getFix()),vec.sub(this.fix, g.getFix()))-(r*r);
+         	
+         	disk=((b*b)-(4*a*c));
+         	if(disk<0){
+         		erg.setHits(false);
+         		return erg;
+         	}else{
+         		erg.setHits(true);
+         		erg.setObj(this);
+         		x1=(-b+Math.sqrt(disk))/(2*a);
+         		x2=(-b-Math.sqrt(disk))/(2*a);
+         		if(x1<0 || x2<0){
+         			erg.setHits(false);
+         			return erg;
+         		}
+         		a=vec.len(vec.add(g.getFix(),vec.scaleN(g.getDir(),x1)));
+         		b=vec.len(vec.add(g.getFix(),vec.scaleN(g.getDir(),x2)));
+         		
+         		if(a<b){
+         			if(a>vec.len(g.getDir())){
+         				erg.setHits(false);
+         				return erg;
+         			}
+         			erg.setCut(vec.add(g.getFix(),vec.scaleN(g.getDir(),x1)));
+         			erg.setDist(a);
+         			
+         		}else{
+         			if(b>vec.len(g.getDir())){
+         				erg.setHits(false);
+         				return erg;
+         			}
+         			erg.setCut(vec.add(g.getFix(),vec.scaleN(g.getDir(),x2)));
+         			erg.setDist(b);
+         		}
+         		//System.out.println(erg.getCut());
+         	}
+            return erg;
+        }
+    }
+    
+    public String toString(){
+    	    return "ball: "+fix+" rad:"+r; 	    
+    }
+    
+    public ball(vec F, double R)
+    {
+        fix = F;
+        r = R;
+    }
 
-	public double getRad() {
-		return rad;
-	}
-	public void setRad(double rad) {
-		this.rad = rad;
-	}
-	public vec getfixpoint() {
-		return fixpoint;
-	}	
-	public double shortestDistanceTo(vec ray){
-		double dist,p,q,r,erg,x1,x2;
-		dist = Double.MAX_VALUE;
+    public vec getFix()
+    {
 
-		p=func.scaleProd(fixpoint,fixpoint)-(rad*rad);
-		q=(-2)*(func.scaleProd(ray,fixpoint));
-		r=func.scaleProd(ray, ray);
-				
-		erg = ((q*q)-(4*p*r));
-				
-				
-		if(erg>0){
-			x1 = (-q+Math.sqrt(erg))/(2*r);
-			x2 = (-q-Math.sqrt(erg))/(2*r);
-			if(x1< x2){
-				dist = x1*func.dist(new vec(0,0,0), ray);
-			}else{
-				dist = x2*func.dist(new vec(0,0,0), ray);
-			}
-			
-		}
+        return fix;
+    }
 
-		return dist;
-	}
-	
+    public double getR()
+    {
+
+        return r;
+    }
 }
